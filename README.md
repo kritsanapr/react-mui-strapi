@@ -77,5 +77,3 @@ The React frontend is responsible for displaying the data managed by Strapi.
 Contributions are welcome! If you find any issues or want to suggest improvements, please create an issue or submit a pull request.
 
 ## License
-
-This project is licensed under the [MIT License](LICENSE). Feel free to use and modify it according to your needs.
