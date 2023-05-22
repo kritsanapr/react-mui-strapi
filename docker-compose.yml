@@ -51,3 +51,50 @@ services:
       - react_prod
     networks:
       - web_network
+
+  # MySQL Database
+  mysqldb:
+    image: mysql:8.0.26
+    container_name: mysql_reactmui
+    restart: always
+    ports:
+      - 44006:3306
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: reactmui
+      MYSQL_USER: reactmui
+      MYSQL_PASSWORD: reactmui
+    volumes:
+      - ./mysql:/var/lib/mysql
+    networks:
+      - web_network
+
+  # Strapi CMS
+  strapi:
+    container_name: strapi_reactmui
+    build: ./strapiapp
+    image: mystrapi:latest
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - 1337:1337
+    environment:
+      DATABASE_CLIENT: ${DATABASE_CLIENT}
+      DATABASE_HOST: mysqldb
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PORT: ${DATABASE_PORT}
+      JWT_SECRET: ${JWT_SECRET}
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      NODE_ENV: ${NODE_ENV}
+    volumes:
+      - ./strapiapp/config:/opt/app/config
+      - ./strapiapp/src:/opt/app/src
+      - ./strapiapp/package.json:/opt/package.json
+      - ./strapiapp/.env:/opt/app/.env
+    depends_on:
+      - mysqldb
+    networks:
+      - web_network
