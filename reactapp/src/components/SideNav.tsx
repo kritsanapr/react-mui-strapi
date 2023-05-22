@@ -32,7 +32,7 @@ const SideNav = () => {
         <Avatar sx={styles.avatar} alt="Masoud" src="/assets/samit.jpg" />
         {!collapsed ? (
           <Typography variant="body2" sx={styles.yourChannel}>
-            Samit Koyom
+            Kritsana Prasit
           </Typography>
         ) : null}
         {!collapsed ? (
