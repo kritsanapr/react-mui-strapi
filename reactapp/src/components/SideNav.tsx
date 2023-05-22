@@ -5,13 +5,22 @@ import StyleOutlinedIcon from "@mui/icons-material/StyleOutlined";
 import SourceOutlinedIcon from "@mui/icons-material/SourceOutlined";
 import AnalyticsOutlinedIcon from "@mui/icons-material/AnalyticsOutlined";
 import { Link } from "react-router-dom";
+import {
+  DASHBOARD_PATH,
+  PRODUCT_PATH,
+  REPORT_PATH,
+  SETTING_PATH,
+} from "../config/contants";
+import { useState } from "react";
 
 const SideNav = () => {
   const { collapsed, toggleSidebar } = useProSidebar();
-  
-  const itemClick = () => {
-      toggleSidebar();
-  }
+  const [activeMenuItem, setActiveMenuItem] = useState("Dashboard");
+
+  const handleMenuClick = (menu: string) => {
+    setActiveMenuItem(menu);
+    toggleSidebar();
+  };
 
   return (
     <Sidebar
@@ -21,36 +30,54 @@ const SideNav = () => {
     >
       <Box sx={styles.avatarContainer}>
         <Avatar sx={styles.avatar} alt="Masoud" src="/assets/samit.jpg" />
-        {!collapsed ? <Typography variant="body2" sx={styles.yourChannel}>Samit Koyom</Typography> : null}
-        {!collapsed ? <Typography variant="body2">Administrator</Typography> : null}
+        {!collapsed ? (
+          <Typography variant="body2" sx={styles.yourChannel}>
+            Samit Koyom
+          </Typography>
+        ) : null}
+        {!collapsed ? (
+          <Typography variant="body2">Administrator</Typography>
+        ) : null}
       </Box>
 
-      <Menu menuItemStyles={{}}>
+      <Menu
+        menuItemStyles={{
+          button: ({ active }) => {
+            return {
+              backgroundColor: active ? "#EEEEEE" : "transparent",
+            };
+          },
+        }}
+      >
         <MenuItem
-          component={<Link to="/backend/dashboard" />}
+          active={activeMenuItem === "Dashboard"}
+          component={<Link to={DASHBOARD_PATH} />}
           icon={<DashboardOutlinedIcon />}
-          onClick={() => itemClick()}
+          onClick={() => handleMenuClick(DASHBOARD_PATH)}
         >
           <Typography variant="body2">Dashboard</Typography>
         </MenuItem>
         <MenuItem
-          component={<Link to="/backend/product" />}
+          active={activeMenuItem === "Product"}
+          component={<Link to={PRODUCT_PATH} />}
           icon={<SourceOutlinedIcon />}
-          onClick={() => itemClick()}
+          onClick={() => handleMenuClick(DASHBOARD_PATH)}
         >
           <Typography variant="body2">Product </Typography>
         </MenuItem>
         <MenuItem
-          component={<Link to="/backend/report" />}
+          active={activeMenuItem === "Report"}
+          component={<Link to={REPORT_PATH} />}
           icon={<AnalyticsOutlinedIcon />}
-          onClick={() => itemClick()}
+          onClick={() => handleMenuClick(REPORT_PATH)}
         >
           <Typography variant="body2">Report </Typography>
         </MenuItem>
         <MenuItem
-          component={<Link to="/backend/setting" />}
+          active={activeMenuItem === "Setting"}
+          component={<Link to={SETTING_PATH} />}
           icon={<StyleOutlinedIcon />}
-          onClick={() => itemClick()}
+          onClick={() => handleMenuClick(SETTING_PATH)}
         >
           <Typography variant="body2">Setting </Typography>
         </MenuItem>
