@@ -9,8 +9,6 @@ import {
   Avatar,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import SettingsIcon from "@mui/icons-material/Settings";
-import LogoutIcon from "@mui/icons-material/Logout";
 import { useProSidebar } from "react-pro-sidebar";
 import {
   Person,
@@ -30,12 +28,8 @@ const AppHeader = () => {
     setAnychorEl(event.currentTarget);
   };
 
-  const handleMenuClose = (event: any) => {
+  const handleMenuClose = () => {
     setAnychorEl(null);
-  };
-
-  const handleLogout = () => {
-    console.log("logout");
   };
 
   return (

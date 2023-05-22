@@ -1,6 +1,3 @@
-// import { Button, Stack } from '@mui/material'
-import { Delete, Send, Photo } from "@mui/icons-material";
-
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AuthLayout from "./layouts/AuthLayout";
 import Login from "./pages/Login";
