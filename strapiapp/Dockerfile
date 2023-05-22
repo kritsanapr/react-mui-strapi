@@ -1,9 +1,9 @@
-FROM node:16
+FROM node:18.16.0-alpine
 
 # Install dependencies
-RUN apt-get update && apt-get install libvips -y
+# RUN apt-get update && apt-get install libvips-dev -y
 
-# Node Engironment
+# Node Environment
 ARG NODE_ENV=development
 ENV NODE_ENV=${NODE_ENV}
 
@@ -11,7 +11,7 @@ ENV NODE_ENV=${NODE_ENV}
 WORKDIR /opt/
 
 # Copy Files
-COPY ./package.json ./package-lock.json ./
+COPY ./package*.json ./
 
 # Path: strapiapp\Dockerfile
 ENV PATH /opt/node_modules/.bin:$PATH
@@ -19,17 +19,20 @@ ENV PATH /opt/node_modules/.bin:$PATH
 # Install Dependencies
 RUN npm install
 
+# Install MySQL Client
+RUN npm install mysql --save
+
 # Working Directory for production
 WORKDIR /opt/app
 
-# Copy Files
+# Copy Files for Strapi production
 COPY . .
 
 # Build Strapi
 RUN npm run build
 
-# Expose Port
+# Expose port
 EXPOSE 1337
 
-# Run App
+# Start Strapi
 CMD ["npm", "run", "develop"]
