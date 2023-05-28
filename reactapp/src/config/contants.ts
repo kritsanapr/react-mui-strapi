@@ -1,7 +1,6 @@
 // System Constants
 export const SYSTEM_NAME = 'React App';
 
-
 // Backend Page Title
 export const DASHBOARD_TITLE = 'Dashboard';
 export const PRODUCT_TITLE = 'Product';

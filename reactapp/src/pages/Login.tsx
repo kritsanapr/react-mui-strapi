@@ -1,14 +1,17 @@
 import { TextField, Button } from "@mui/material"
 import { useForm } from "react-hook-form"
+import { SYSTEM_NAME } from "../config/contants"
 
 const Login = () => {
-
+  document.title = `Login | ${SYSTEM_NAME}`
   // useForm hook
   const { register, handleSubmit, formState: { errors } } = useForm()
 
   // onSubmit function
   const onSubmit = (data: any) => {
-    console.log(data)
+    if (data) {
+      console.log(data)
+    }
   }
 
   return (
