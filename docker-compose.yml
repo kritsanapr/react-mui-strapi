@@ -8,7 +8,6 @@ networks:
 
 # Services
 services:
-
   # React App Development
   react_dev:
     build: 

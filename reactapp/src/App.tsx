@@ -12,7 +12,6 @@ import {
   REPORT_PATH,
   SETTING_PATH,
 } from "./config/contants";
-
 import ProtectedRoute from "./router/ProtectedRoute";
 
 function App() {
