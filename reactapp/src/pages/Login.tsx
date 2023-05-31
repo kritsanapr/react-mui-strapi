@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { SYSTEM_NAME } from "../config/contants";
+import api from "../services/authUserAPI";
 
 const Login = () => {
   document.title = `Login | ${SYSTEM_NAME}`;
@@ -23,8 +24,28 @@ const Login = () => {
 
   // onSubmit function
   const onSubmit = (data: any) => {
+
     if (data) {
-      console.log(data);
+      const authData = {
+        'identifier': data.username,
+        'password': data.password
+      }
+
+      api.authUserAPI(authData).then((res: any) => {
+        console.log(res);
+        if(res.status === 200){
+          console.log(res.data);
+          localStorage.setItem('token', res.data.jwt);
+          localStorage.setItem('user', JSON.stringify(res.data.user));
+          window.location.href = '/backend/dashboard';
+        }
+      }).catch((err) => {
+        console.log(err);
+        if(err.response.status === 400){
+          alert(err.response.data.message[0].messages[0].message);
+        }
+      })
+
     }
   };
 
@@ -60,7 +81,7 @@ const Login = () => {
               label="Username"
               type="text"
               variant="outlined"
-              {...register("username", { required: true, minLength: 5 })}
+              {...register("username", { required: true, minLength: 4 })}
               error={errors.username ? true : false}
               helperText={errors.username ? "Username is required" : ""}
             />

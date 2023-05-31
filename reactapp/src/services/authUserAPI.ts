@@ -1,8 +1,8 @@
-import Axios from "axios";
+import axios from "axios";
 
 const authUserAPI = async (data: any) => {
     try {
-        return Axios.post('/auth/local', data, {
+        return axios.post('/auth/local', data, {
             baseURL: import.meta.env.VITE_BASE_URL_API,
             headers: {
                 'Content-Type': 'application/json',

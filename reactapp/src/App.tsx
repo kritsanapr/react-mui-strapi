@@ -13,6 +13,8 @@ import {
   SETTING_PATH,
 } from "./config/contants";
 
+import ProtectedRoute from "./router/ProtectedRoute";
+
 function App() {
   return (
     <BrowserRouter>
@@ -20,7 +22,7 @@ function App() {
         <Route element={<AuthLayout />}>
           <Route path="/" element={<Login />} />
         </Route>
-        <Route element={<BackendLayout />}>
+        <Route element={<ProtectedRoute><BackendLayout /></ProtectedRoute> }>
           <Route path={DASHBOARD_PATH} element={<Dashboard />} />
           <Route path={PRODUCT_PATH} element={<Product />} />
           <Route path={REPORT_PATH} element={<Report />} />
